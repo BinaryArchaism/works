@@ -12,13 +12,70 @@ public class Date {
         this.year = year;
     }
 
-    public int countOfDay(Date d1, Date d2) {
-        int one = d1.year*365+d1.month*30+d1.day;
-        int two = d2.year*365+d2.month*30+d2.day;
-        return one-two;
+    private boolean isYearLeap(int year) {
+        return ((year % 400 == 0)|| ((year % 100 != 0) && (year % 4 == 0)));
     }
 
+    private int countOfDaysInYear(int year) {
+        if (isYearLeap(year)) return 366;
+        else return 365;
+    }
 
+    private int countOfDaysInMonth(int year, int month) {
+        int countofDayInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30 ,31};
+        if (month == 2 && isYearLeap(year)) return 29;
+        else return countofDayInMonth[month];
+    }
 
-    public enum days {. }
+    private boolean isDateTrue(Date date){
+        return (date.year >= 1901 && date.month >= 1 && date.month <= 12 && date.day >= 1 && date.day <= countOfDaysInMonth(date.year, date.month));
+    }
+
+    public Date nextDate(Date date) {
+        if (isDateTrue(date)) {
+            if (date.day < countOfDaysInMonth(date.year, date.month)) date.day += 1;
+            else {
+                date.day = 1;
+                date.month += 1;
+            }
+            if (date.month == 13) {
+                date.month = 1;
+                date.year += 1;
+            }
+        } else System.out.println("Error");
+        return date;
+    }
+
+    private int countOfDaysFromStart(Date date) {
+        int _day = 0;
+        for (int y = 1901; y < date.year; y++) _day = _day + countOfDaysInYear(y);
+        for (int m = 1; m < date.month; m++) _day = _day + countOfDaysInMonth(date.year, m);
+        _day = _day + date.day;
+        return _day;
+    }
+
+    private Date defineDate(int days) {
+        int year = 1901;
+        while (days > countOfDaysInYear(year)){
+            days = days - countOfDaysInYear(year);
+            year += 1;
+        }
+        int month = 1;
+        while (days > countOfDaysInMonth(year, month)) {
+            days = days - countOfDaysInMonth(year, month);
+            month += 1;
+        }
+        int d = days;
+        return new Date(d, month, year);
+    }
+
+    public Date setDate(Date date, int days) {
+        int d = countOfDaysFromStart(date);
+        d += days;
+        return defineDate(d);
+    }
+
+    public int countOfDaysBetweenDates(Date d1, Date d2) {
+        return Math.abs((countOfDaysFromStart(d1) - countOfDaysFromStart(d2)));
+    }
 }
