@@ -78,4 +78,13 @@ public class Date {
     public int countOfDaysBetweenDates(Date d1, Date d2) {
         return Math.abs((countOfDaysFromStart(d1) - countOfDaysFromStart(d2)));
     }
+
+    public Date[] sortDate(int date[][]) {
+        Date dd[date.length];
+        for (int i = 0; i < date.length; i++) {
+            int k = countOfDaysFromStart(new Date(date[i][0], date[i][1], date[i][3] ));
+            dd[i] = defineDate(k);
+        }
+
+    }
 }
