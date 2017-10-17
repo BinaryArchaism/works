@@ -79,12 +79,33 @@ public class Date {
         return Math.abs((countOfDaysFromStart(d1) - countOfDaysFromStart(d2)));
     }
 
-    public Date[] sortDate(int date[][]) {
-        Date dd[date.length];
+    public int[][] sortDate(int date[][]) {
+        Date date1[] = new Date[date.length];
         for (int i = 0; i < date.length; i++) {
-            int k = countOfDaysFromStart(new Date(date[i][0], date[i][1], date[i][3] ));
-            dd[i] = defineDate(k);
+            date1[i] = new Date(date[i][0], date[i][1], date[i][2]);
         }
-
+        int d[] = new int[date.length];
+        for (int i = 0; i < date.length; i++) {
+            d[i] = countOfDaysFromStart(date1[i]);
+        }
+        for (int i = 1; i < date.length; i++) {
+            int c = d[i];
+            int p = i - 1;
+            while (p >= 0 && d[p] > c) {
+                d[p+1] = d[p];
+                p--;
+            }
+            d[p+1] = c;
+        }
+        for (int i = 0; i < date.length; i++) {
+            date1[i] = defineDate(d[i]);
+        }
+        int ret[][] = new int[date.length][3];
+        for (int i = 0; i < date.length; i ++) {
+            ret[i][0] = date1[i].day;
+            ret[i][1] = date1[i].month;
+            ret[i][2] = date1[i].year;
+        }
+        return ret;
     }
 }
