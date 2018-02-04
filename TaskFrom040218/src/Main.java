@@ -2,6 +2,10 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        task4_1();
+    }
+
+    public static void task4_1() {
         Scanner sc = new Scanner(System.in);
         int number = sc.nextInt();
 
