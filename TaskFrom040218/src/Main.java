@@ -2,7 +2,21 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        task4_1();
+        
+    }
+
+    public static void task_3() {
+        Scanner sc = new Scanner(System.in);
+        int number = sc.nextInt();
+
+        System.out.print(number + " = ");
+        for (int i = 2; i <= number; ++i) {
+            while (number % i == 0) {
+                number = number / i;
+                System.out.print(i + " * ");
+            }
+        }
+
     }
 
     public static void task4_1() {
