@@ -23,5 +23,14 @@ public class Main {
         order.getAccountMoney(vip, 2000);
 
         System.out.println(vip.getBalance());
+
+        Account account1 = new UsualAccount() {
+            @Override
+            public void addDeposit(double deposit) {
+                balance += deposit*0.8;
+            }
+        };
+        account1.addDeposit(4000);
+        System.out.println(account1.getBalance());
     }
 }
