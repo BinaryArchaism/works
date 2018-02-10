@@ -1,10 +1,10 @@
 public class Account {
-    private int balance = 0;
+    protected double balance = 0;
 
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
-    public void addDeposit(int deposit) {
-        balance += deposit;
+    public void addDeposit(double deposit) {
+        balance += deposit*0.9;
     }
 }
